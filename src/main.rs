@@ -1,5 +1,3 @@
-// main.rs
-
 mod framebuffer;
 mod line;
 mod vertex;
