@@ -14,21 +14,20 @@ fn main() {
     let mut framebuffer = Framebuffer::new(width, height, raylib::prelude::Color::new(50, 50, 100, 255));
     framebuffer.clear();
 
-    // Solo polígono 2: Cuadrilátero
-    let poly2 = [
-        Vertex { x: 321, y: 335 }, Vertex { x: 288, y: 286 },
-        Vertex { x: 339, y: 251 }, Vertex { x: 374, y: 302 },
+    // Solo polígono 3: Triángulo
+    let poly3 = [
+        Vertex { x: 377, y: 249 }, Vertex { x: 411, y: 197 }, Vertex { x: 436, y: 249 },
     ];
 
-    // Rellenar cuadrilátero en azul
-    framebuffer.set_current_color(raylib::prelude::Color::BLUE);
-    fill_polygon(&mut framebuffer, &poly2);
+    // Rellenar triángulo en rojo
+    framebuffer.set_current_color(raylib::prelude::Color::RED);
+    fill_polygon(&mut framebuffer, &poly3);
     
     // Borde blanco
     framebuffer.set_current_color(raylib::prelude::Color::WHITE);
-    for j in 0..poly2.len() {
-        let start = poly2[j];
-        let end = poly2[(j + 1) % poly2.len()];
+    for j in 0..poly3.len() {
+        let start = poly3[j];
+        let end = poly3[(j + 1) % poly3.len()];
         line(&mut framebuffer, start, end);
     }
     
