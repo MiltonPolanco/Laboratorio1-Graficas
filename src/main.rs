@@ -14,7 +14,7 @@ fn main() {
     let mut framebuffer = Framebuffer::new(width, height, raylib::prelude::Color::new(50, 50, 100, 255));
     framebuffer.clear();
 
-    // Coordenadas de los polígonos
+    // Coordenadas de todos los polígonos
     let poly1 = [
         Vertex { x: 165, y: 380 }, Vertex { x: 185, y: 360 }, Vertex { x: 180, y: 330 },
         Vertex { x: 207, y: 345 }, Vertex { x: 233, y: 330 }, Vertex { x: 230, y: 360 },
@@ -53,18 +53,18 @@ fn main() {
         raylib::prelude::Color::GREEN,
     ];
 
-    // Dibujar polígonos
+    // Dibujar todos los polígonos
     for (i, poly) in polys.iter().enumerate() {
         framebuffer.set_current_color(colors[i]);
         fill_polygon(&mut framebuffer, poly);
         
-        // Crear agujero en el polígono 4
+        // Crear agujero en polígono 4
         if i == 3 {
             framebuffer.set_current_color(raylib::prelude::Color::new(50, 50, 100, 255));
             fill_polygon(&mut framebuffer, &poly5);
         }
         
-        // Dibujar bordes
+        // Bordes blancos
         framebuffer.set_current_color(raylib::prelude::Color::WHITE);
         for j in 0..poly.len() {
             let start = poly[j];
