@@ -14,7 +14,23 @@ fn main() {
     let mut framebuffer = Framebuffer::new(width, height, raylib::prelude::Color::new(50, 50, 100, 255));
     framebuffer.clear();
 
-    // Polígono 4: Forma compleja
+    // Coordenadas de los polígonos
+    let poly1 = [
+        Vertex { x: 165, y: 380 }, Vertex { x: 185, y: 360 }, Vertex { x: 180, y: 330 },
+        Vertex { x: 207, y: 345 }, Vertex { x: 233, y: 330 }, Vertex { x: 230, y: 360 },
+        Vertex { x: 250, y: 380 }, Vertex { x: 220, y: 385 }, Vertex { x: 205, y: 410 },
+        Vertex { x: 193, y: 383 },
+    ];
+
+    let poly2 = [
+        Vertex { x: 321, y: 335 }, Vertex { x: 288, y: 286 },
+        Vertex { x: 339, y: 251 }, Vertex { x: 374, y: 302 },
+    ];
+
+    let poly3 = [
+        Vertex { x: 377, y: 249 }, Vertex { x: 411, y: 197 }, Vertex { x: 436, y: 249 },
+    ];
+
     let poly4 = [
         Vertex { x: 413, y: 177 }, Vertex { x: 448, y: 159 }, Vertex { x: 502, y: 88 },
         Vertex { x: 553, y: 53 }, Vertex { x: 535, y: 36 }, Vertex { x: 676, y: 37 },
@@ -30,20 +46,32 @@ fn main() {
         Vertex { x: 735, y: 148 }, Vertex { x: 739, y: 170 },
     ];
 
-    // Rellenar polígono en verde
-    framebuffer.set_current_color(raylib::prelude::Color::GREEN);
-    fill_polygon(&mut framebuffer, &poly4);
-    
-    // Crear agujero
-    framebuffer.set_current_color(raylib::prelude::Color::new(50, 50, 100, 255));
-    fill_polygon(&mut framebuffer, &poly5);
-    
-    // Bordes blancos
-    framebuffer.set_current_color(raylib::prelude::Color::WHITE);
-    for j in 0..poly4.len() {
-        let start = poly4[j];
-        let end = poly4[(j + 1) % poly4.len()];
-        line(&mut framebuffer, start, end);
+    let polys = [&poly1[..], &poly2[..], &poly3[..], &poly4[..]];
+    let colors = [
+        raylib::prelude::Color::YELLOW,
+        raylib::prelude::Color::BLUE,
+        raylib::prelude::Color::RED,
+        raylib::prelude::Color::GREEN,
+    ];
+
+    // Dibujar polígonos
+    for (i, poly) in polys.iter().enumerate() {
+        framebuffer.set_current_color(colors[i]);
+        fill_polygon(&mut framebuffer, poly);
+        
+        // Crear agujero en el polígono 4
+        if i == 3 {
+            framebuffer.set_current_color(raylib::prelude::Color::new(50, 50, 100, 255));
+            fill_polygon(&mut framebuffer, &poly5);
+        }
+        
+        // Dibujar bordes
+        framebuffer.set_current_color(raylib::prelude::Color::WHITE);
+        for j in 0..poly.len() {
+            let start = poly[j];
+            let end = poly[(j + 1) % poly.len()];
+            line(&mut framebuffer, start, end);
+        }
     }
     
     // Borde del agujero
